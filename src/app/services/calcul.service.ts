@@ -13,9 +13,7 @@ export class CalculService {
       if(list[i][criteria] == val){
         nb ++
       }
-      
     }
-    
     return nb
   }
 

@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ToDoComponent } from './to-do/to-do.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
-
+import { DetailComponent } from './detail/detail.component';
+import {HttpClientModule} from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -16,11 +15,13 @@ import { NotFoundComponent } from './not-found/not-found.component';
     HomeComponent,
     ToDoComponent,
     NotFoundComponent,
+    DetailComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,27 +1,27 @@
 <div>
-    <h1>{{title}}</h1>
-    <button class="btn btn-dark" 
-    (click)="getStat()"> Get Stat </button> 
-    <h2>{{nb}}</h2>
-
+    <h2>{{title}}</h2>
+    <button class="btn btn-dark" (click)="getStat()"> Get Stat </button>
+    <h6>Nb product:{{nb}}</h6>
     <form>
-    <input class="form-control" type="number" name="nbMax"
-     [(ngModel)]="nombreMax">
-</form></div>
+        <input class="form-control" type="number" name="nbMax" [(ngModel)]="nombreMax">
+    </form>
+</div>
 
 <div class="row">
-    <div class="col-md-4"  *ngFor="let product of productList , let i = index ">
-<div *ngIf="nombreMax>=product.price || nombreMax == null">
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="{{image}}" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">Title :{{product.title}}</h5>
-              <p class="card-text">Price :{{product.price}}</p>
-              <p class="card-text">Quantity :{{product.quantity}}</p>
-              <button (click)="IncrementLike(i)" class="btn btn-primary">{{product.like }} Like</button>
-              <a href="#" >Details</a>
+    <div class="col-md-4" *ngFor="let product of productList , let i = index ">
+        <div *ngIf="nombreMax>=product.price || nombreMax == null">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{image}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Title :{{product.title}}</h5>
+                    <p class="card-text">Price :{{product.price}}</p>
+                    <p class="card-text">Quantity :{{product.quantity}}</p>
+                    <button (click)="IncrementLike(i)" class="btn btn-primary">{{product.like }} Like</button>
+                    <button class="btn btn-success" (click)="buyProduct(product)" [disabled]="product.quantity == 0">
+                        Buy</button>
+                    <a routerLink="{{product.id}}">Details</a>
+                </div>
             </div>
-          </div>
         </div>
     </div>
 </div>
