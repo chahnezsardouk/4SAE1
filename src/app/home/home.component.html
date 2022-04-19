@@ -1,12 +1,49 @@
-<div>
-    <h2>{{title}}</h2>
-    <button class="btn btn-dark" (click)="getStat()"> Get Stat </button>
-    <h6>Nb product:{{nb}}</h6>
-    <form>
-        <input class="form-control" type="number" name="nbMax" [(ngModel)]="nombreMax">
-    </form>
-</div>
-
+<h2>{{titre}}</h2>
+<h3>Add Product</h3>
+<button class="btn btn-primary" (click)="showForm()"> Add Product</button>
+<button class="btn btn-danger float-right" (click)="hideForm()"> Cancel</button>
+<form #f="ngForm" [hidden]="hidden">
+    <div>
+        <label>Id:</label>
+        <input #id="ngModel" type="number" name="id" class="form-control" [(ngModel)]="product.id" required>
+    </div>
+    <div class="alert-danger" *ngIf="id.invalid && id.touched">
+        Id is required
+    </div>
+    <div>
+        <label>Title</label>
+        <input #title="ngModel" type="text" name="title" class="form-control" [(ngModel)]="product.title" required
+            minlength="3" pattern="^[a-zA-Z]+$">
+    </div>
+    <div class=" alert-danger" *ngIf="title.invalid && title.touched">
+        <div *ngIf="title.errors?.['required']">Title is required</div>
+        <div *ngIf="title.errors?.['minlength']">minlength 3</div>
+        <div *ngIf="title.errors?.['pattern']">error pattern</div>
+    </div>
+    <div>
+        <label>Quantity</label>
+        <input #quantity="ngModel" type="number" name="quantity" class="form-control" [(ngModel)]="product.quantity"
+            required min="10">
+    </div>
+    <div class=" alert-danger" *ngIf="quantity.invalid && quantity.touched">
+        <div *ngIf="quantity.errors?.['required']"> Quantity is required</div>
+        <div *ngIf="quantity.errors?.['min']"> Min = 10 </div>
+    </div>
+    <div>
+        <label>Price</label>
+        <input #price="ngModel" type="number" name="price" class="form-control" [(ngModel)]="product.price" required>
+    </div>
+    <div class=" alert-danger" *ngIf="price.invalid && price.touched">
+        <div *ngIf="price.errors?.['required']"> Price is required</div>
+    </div>
+    <div class="alert-danger" *ngIf="price.value <0 ">
+        Price shoud be positive
+    </div>
+    <button class="btn btn-success" (click)="addProduct(product)" [disabled]="f.invalid
+    ">Add product</button>
+</form>
+<hr>
+<h3>ListProduct</h3>
 <div class="row">
     <div class="col-md-4" *ngFor="let product of productList , let i = index ">
         <div *ngIf="nombreMax>=product.price || nombreMax == null">
@@ -19,14 +56,23 @@
                     <button (click)="IncrementLike(i)" class="btn btn-primary">{{product.like }} Like</button>
                     <button class="btn btn-success" (click)="buyProduct(product)" [disabled]="product.quantity == 0">
                         Buy</button>
+                    <button class="btn btn-danger" (click)="deleteProduct(product)">
+                        Delete</button>
+                    <!-- <button class="btn btn-danger" (click)="deleteProductId(product.id)" >
+                            Delete</button> -->
                     <a routerLink="{{product.id}}">Details</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
+<div>
+    <button class="btn btn-dark" (click)="getStat()"> Get Stat </button>
+    <h6>Nb product:{{nb}}</h6>
+    <form>
+        <input class="form-control" type="number" name="nbMax" [(ngModel)]="nombreMax">
+    </form>
+</div>
 
 <!-- <table class="table">
     <thead>

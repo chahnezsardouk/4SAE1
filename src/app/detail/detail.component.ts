@@ -11,9 +11,22 @@ import { ProductService } from '../services/product.service';
 export class DetailComponent implements OnInit {
 id : any;
 product : Product ;
-  constructor(private activatedRoute : ActivatedRoute, private productService : ProductService) { }
+  constructor(private activatedRoute : ActivatedRoute,
+    
+
+    
+    
+    private productService : ProductService) { }
 
   ngOnInit(): void {
    this.id = this.activatedRoute.snapshot.params['id'];
+
+
+
+
+   
+   this.productService.getProductById(this.id).subscribe((data: Product) => (this.product = data))
+
   }
+  
 }
