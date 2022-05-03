@@ -2,7 +2,8 @@
 <h3>Add Product</h3>
 <button class="btn btn-primary" (click)="showForm()"> Add Product</button>
 <button class="btn btn-danger float-right" (click)="hideForm()"> Cancel</button>
-<form #f="ngForm" [hidden]="hidden">
+<app-add-product [hidden]="hidden" (notificationAddProduct)="addProduct($event)"></app-add-product>
+<!-- <form #f="ngForm" [hidden]="hidden">
     <div>
         <label>Id:</label>
         <input #id="ngModel" type="number" name="id" class="form-control" [(ngModel)]="product.id" required>
@@ -41,11 +42,14 @@
     </div>
     <button class="btn btn-success" (click)="addProduct(product)" [disabled]="f.invalid
     ">Add product</button>
-</form>
+</form> -->
 <hr>
 <h3>ListProduct</h3>
 <div class="row">
-    <div class="col-md-4" *ngFor="let product of productList , let i = index ">
+    <app-product class="col-md-4" *ngFor="let product of productList ,
+     let i = index" [product]="product" [nombreMax]="nombreMax" (notificationLike)="IncrementLikeOutput($event)"
+        (notificationDelete)="deleteProduct($event)" (notificationBuy)="buyProductOutPut($event)"></app-product>
+    <!-- <div class="col-md-4" *ngFor="let product of productList , let i = index ">
         <div *ngIf="nombreMax>=product.price || nombreMax == null">
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="{{image}}" alt="Card image cap">
@@ -58,13 +62,11 @@
                         Buy</button>
                     <button class="btn btn-danger" (click)="deleteProduct(product)">
                         Delete</button>
-                    <!-- <button class="btn btn-danger" (click)="deleteProductId(product.id)" >
-                            Delete</button> -->
                     <a routerLink="{{product.id}}">Details</a>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 <div>
     <button class="btn btn-dark" (click)="getStat()"> Get Stat </button>

@@ -22,9 +22,6 @@ product : Product ;
    this.id = this.activatedRoute.snapshot.params['id'];
 
 
-
-
-   
    this.productService.getProductById(this.id).subscribe((data: Product) => (this.product = data))
 
   }

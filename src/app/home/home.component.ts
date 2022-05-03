@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Product } from '../model/product';
 import { CalculService } from '../services/calcul.service';
 import { ProductService } from '../services/product.service';
@@ -16,7 +17,9 @@ export class HomeComponent implements OnInit {
   nb: number = 0;
   product: Product;
   hidden: boolean;
-  constructor(private calculService: CalculService, private productService: ProductService) { }
+  constructor(private calculService: CalculService, 
+    private productService: ProductService, 
+      private router: Router,) { }
 
   ngOnInit(): void {
     this.titre = 'E-commerce'
@@ -37,12 +40,24 @@ export class HomeComponent implements OnInit {
   hideForm() {
     this.hidden = true;
   }
+
+
   IncrementLike(i: number) {
+
+    this.productList[i].like++
+  }
+
+  IncrementLikeOutput(product) {
+    let i = this.productList.indexOf(product)
     this.productList[i].like++
   }
   buyProduct(product) {
     product.quantity--
   }
+  buyProductOutPut(product) {
+    product.quantity--
+  }
+  
   calcul() {
     this.nb = 0
     this.productList.forEach(produit => {
@@ -55,17 +70,19 @@ export class HomeComponent implements OnInit {
   getStat() {
     this.nb = this.calculService.getStat(this.productList, 'quantity', 0)
   }
-  addP(product) {
-    this.product.like = 0;
-    this.productService.addProduct(product).subscribe(() =>
-      this.productList.push(product))
-  }
+
+
+
+
+
   addProduct(product: Product) {
+    this.product.image="../assets/tshirt.jpg"
     this.product.like = 0;
     this.productService.addProduct(product).subscribe(
       () => (this.productList.push(product))
     )
     this.hidden = true
+   
   }
   deleteProduct(product: Product) {
     this.productService.deleteProduct(product.id).subscribe(
